@@ -1,18 +1,25 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/signup', { email, password });
-      localStorage.setItem('token', response.data.token);
+      const response = await axios.post("/api/auth/signup", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", response.data.token);
+      console.log("Signup successful, token saved:", response.data.token);
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error(
+        "Error signing up:",
+        error.response?.data?.error || error.message
+      );
     }
   };
 
